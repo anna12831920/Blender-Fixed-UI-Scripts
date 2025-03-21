@@ -86,6 +86,44 @@ class BLOP_PT_rigui_Rig_ID_Sombra(bpy.types.Panel):
 		layout = self.layout
 		col = layout.column()
 
+		# Replacement names for bone collection
+		# These didn't exist in 2.93 original file?
+		# Replace them with author selected names
+		rlist = [
+			{"search_name": "Layer " + str(0 + 1), "new_name": 'Main'},
+			{"search_name": "Layer " + str(1 + 1), "new_name": 'Head'},
+			{"search_name": "Layer " + str(17 + 1), "new_name": 'Face'},
+			{"search_name": "Layer " + str(2 + 1), "new_name": 'Hands'},
+			{"search_name": "Layer " + str(15 + 1), "new_name": 'Hair'},
+			{"search_name": "Layer " + str(18 + 1), "new_name": 'Breath Ctrl'},
+			{"search_name": "Layer " + str(7 + 1), "new_name": 'Armor'},
+			{"search_name": "Layer " + str(31 + 1), "new_name": 'Strapon'},
+			{"search_name": "Layer " + str(25 + 1), "new_name": 'Penis'},
+			{"search_name": "Layer " + str(26 + 1), "new_name": 'Penis IK'},
+			{"search_name": "Layer " + str(24 + 1), "new_name": 'Root'},
+			{"search_name": "Layer " + str(16 + 1), "new_name": 'Deformation'},
+		]
+		i = 0
+		for coll in context.active_object.data.collections:
+			for r in rlist:
+				# Check for if index and
+				# search original bone collection name is matched
+				if coll.name == r["search_name"]:
+					# Use the new replace name
+					row = col.row()
+					#row.prop(coll, 'is_visible', toggle=True, text=r["new_name"] + ' [' + str(i) + ']')
+					row.prop(coll, 'is_visible', toggle=True, text=r["new_name"])
+					break
+			i += 1
+
+		'''
+		i = 0
+		for coll in context.active_object.data.collections:
+			row = col.row()
+			row.prop(coll, 'is_visible',toggle=True, text=coll.name+ ' [' +str(i)+']')
+			i=i+1
+		'''
+		'''
 		row = col.row()
 		row.prop(context.active_object.data,'layers', index=0, toggle=True, text='Main')
 
@@ -119,6 +157,7 @@ class BLOP_PT_rigui_Rig_ID_Sombra(bpy.types.Panel):
 		
 		row = col.row()
 		row.prop(context.active_object.data,'layers', index=16, toggle=True, text='Deformation')
+		'''
 
 
 #class BLOP_PT_customprops_Rig_ID_Sombra(bpy.types.Panel):
