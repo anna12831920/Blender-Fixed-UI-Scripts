@@ -2434,6 +2434,45 @@ class RigLayers(bpy.types.Panel):
         layout = self.layout
         col = layout.column()
 
+        rlist = [
+            {"search_name": "Layer " + str(1 + 1), "new_name": 'Face '},
+            {"search_name": "Layer " + str(2 + 1), "new_name": 'Face (detail) '},
+            {"search_name": "Layer " + str(3 + 1), "new_name": 'Torso'},
+            {"search_name": "Layer " + str(4 + 1), "new_name": 'Torso (Tweak)'},
+            {"search_name": "Layer " + str(5 + 1), "new_name": 'Fingers'},
+            {"search_name": "Layer " + str(6 + 1), "new_name": 'Fingers (Detail)'},
+            {"search_name": "Layer " + str(7 + 1), "new_name": 'Arm.L (IK)'},
+            {"search_name": "Layer " + str(10 + 1), "new_name": 'Arm.R (IK)'},
+            {"search_name": "Layer " + str(8 + 1), "new_name": 'Arm.L (FK)'},
+            {"search_name": "Layer " + str(11 + 1), "new_name": 'Arm.R (FK)'},
+            {"search_name": "Layer " + str(9 + 1), "new_name": 'Arm.L (Tweak)'},
+            {"search_name": "Layer " + str(12 + 1), "new_name": 'Arm.R (Tweak)'},
+            {"search_name": "Layer " + str(13 + 1), "new_name": 'Leg.L (IK)'},
+            {"search_name": "Layer " + str(16 + 1), "new_name": 'Leg.R (IK)'},
+            {"search_name": "Layer " + str(14 + 1), "new_name": 'Leg.L (FK)'},
+            {"search_name": "Layer " + str(17 + 1), "new_name": 'Leg.R (FK)'},
+            {"search_name": "Layer " + str(15 + 1), "new_name": 'Leg.L (Tweak)'},
+            {"search_name": "Layer " + str(18 + 1), "new_name": 'Leg.R (Tweak)'},
+            {"search_name": "Layer " + str(19 + 1), "new_name": 'Custom '},
+            {"search_name": "Layer " + str(28 + 1), "new_name": 'Root'},
+        ]
+        i=0
+        debug=False
+        for coll in context.active_object.data.collections:
+            for r in rlist:
+                # Check for if index and
+                # search original bone collection name is matched
+                if coll.name == r["search_name"]:
+                    # Use the new replace name
+                    row = col.row()
+                    if debug == True:
+                        row.prop(coll, 'is_visible', toggle=True, text=r["new_name"] + ' [' + str(i) + ']')
+                    else:
+                        row.prop(coll, 'is_visible', toggle=True, text=r["new_name"])
+                    break
+            i += 1
+
+        '''
         row = col.row()
         row.prop(context.active_object.data, 'layers', index=1, toggle=True, text='Face ')
         row.prop(context.active_object.data, 'layers', index=2, toggle=True, text='Face (detail) ')
@@ -2484,6 +2523,7 @@ class RigLayers(bpy.types.Panel):
 
         row = col.row()
         row.prop(context.active_object.data, 'layers', index=28, toggle=True, text='Root')
+        '''
 
 def register():
     bpy.utils.register_class(RigBakeSettings)
