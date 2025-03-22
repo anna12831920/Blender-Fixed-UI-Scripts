@@ -1,3 +1,5 @@
+# Updated for 4.2.3 LTS
+
 import bpy
 import math
 import json
